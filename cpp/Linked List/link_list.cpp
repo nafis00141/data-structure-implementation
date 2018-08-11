@@ -67,7 +67,9 @@ int main(){
 
     print_list(&reverseList);
 
-    cout<<"list size: "<<get_size(&reverseList)<<"\n";
+    cout<<"reverse list size: "<<get_size(&reverseList)<<"\n";
+
+    cout<<"list size: "<<get_size(&head)<<"\n";
 
     cout<<"clear list\n";
 

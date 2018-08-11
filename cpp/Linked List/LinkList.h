@@ -14,6 +14,13 @@ struct node{
 };
 
 
+node* copyNode(node* n){
+
+    return new node(n->val);
+
+}
+
+
 void print_list(node** head){
 
     node* temp = *head;
@@ -171,15 +178,22 @@ node* reverse_list(node* head){
     node* rev = NULL;
 
     while(ite!=NULL){
-        node* temp = ite;
+        node* temp = copyNode(ite);
         ite = ite->next;
         temp->next = rev;
         rev = temp;
     }
 
-    delete(ite);
-
     return rev;
+
+}
+
+
+void swapNodes(node** head,int pos1,int pos2){
+
+    int sz = get_size(head);
+
+    cout<<sz<<"\n";
 
 }
 

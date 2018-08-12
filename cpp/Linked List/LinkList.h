@@ -189,11 +189,67 @@ node* reverse_list(node* head){
 }
 
 
-void swapNodes(node** head,int pos1,int pos2){
+/*
 
-    int sz = get_size(head);
+Given a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
 
-    cout<<sz<<"\n";
+Input: head = 1->4->3->2->5->2, x = 3
+Output: 1->2->2->4->3->5
+
+*/
+
+node* partition_list(node* head, int x) {
+
+    if(head==NULL) return head;
+
+    node* insertPosition = head;
+    node* preTemp = NULL;
+    node* temp = head;
+
+    while(temp!=NULL){
+        if(temp->val>=x) break;
+        insertPosition = temp;
+        preTemp = temp;
+        temp = temp->next;
+    }
+
+    //cout<<insertPosition->val<<"\n";
+    //if(preTemp!=NULL)cout<<preTemp->val<<"\n";
+
+
+    bool flag = true;
+    if(insertPosition==head && head->val>=x){
+        flag = false; ///insert in head
+    }
+
+
+    while(temp!=NULL){
+
+        if(temp->val<x){
+            node* t = temp;
+            if(preTemp!=NULL)preTemp->next = temp->next;
+            temp = preTemp->next;
+
+            if(flag==false){
+                t->next = insertPosition;
+                insertPosition = head = t;
+                flag = true;
+            }
+            else{
+                t->next = insertPosition->next;
+                insertPosition->next = t;
+                insertPosition = insertPosition->next;
+            }
+
+        }
+        else{
+            preTemp = temp;
+            temp = temp->next;
+        }
+
+    }
+
+    return head;
 
 }
 

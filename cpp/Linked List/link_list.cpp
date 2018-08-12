@@ -19,7 +19,7 @@ int main(){
 
     cout<<"list size: "<<get_size(&head)<<"\n";
 
-    for(int i=4;i>=1;i--){
+    for(int i=1;i<=4;i++){
         insert_front(&head,i);
     }
 
@@ -70,6 +70,12 @@ int main(){
     cout<<"reverse list size: "<<get_size(&reverseList)<<"\n";
 
     cout<<"list size: "<<get_size(&head)<<"\n";
+
+    head = partition_list(head, 3);
+
+    print_list(&head);
+
+    cout<<"partition list size: "<<get_size(&head)<<"\n";
 
     cout<<"clear list\n";
 

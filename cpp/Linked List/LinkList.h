@@ -202,51 +202,65 @@ node* partition_list(node* head, int x) {
 
     if(head==NULL) return head;
 
-    node* insertPosition = head;
-    node* preTemp = NULL;
-    node* temp = head;
+    node* p1 = new node(-1); // for < x
+    node* p2 = new node(-1); //for >= x
 
-    while(temp!=NULL){
-        if(temp->val>=x) break;
-        insertPosition = temp;
-        preTemp = temp;
-        temp = temp->next;
-    }
-
-    //cout<<insertPosition->val<<"\n";
-    //if(preTemp!=NULL)cout<<preTemp->val<<"\n";
+    node* p3 = p1;
+    node* p4 = p2;
 
 
-    bool flag = true;
-    if(insertPosition==head && head->val>=x){
-        flag = false; ///insert in head
-    }
-
-
-    while(temp!=NULL){
-
-        if(temp->val<x){
-            node* t = temp;
-            if(preTemp!=NULL)preTemp->next = temp->next;
-            temp = preTemp->next;
-
-            if(flag==false){
-                t->next = insertPosition;
-                insertPosition = head = t;
-                flag = true;
-            }
-            else{
-                t->next = insertPosition->next;
-                insertPosition->next = t;
-                insertPosition = insertPosition->next;
-            }
-
+    while(head!=NULL){
+        if(head->val<x){
+            p1->next = head;
+            p1 = p1->next;
         }
         else{
-            preTemp = temp;
-            temp = temp->next;
+            p2->next = head;
+            p2 = p2->next;
         }
+        head = head->next;
+    }
 
+    p2->next = NULL;
+    p1->next = p4->next;
+    head = p3->next;
+
+
+
+    return head;
+
+}
+
+/*
+Given a linked list, remove the n-th node from the end of list and return its head.
+Given linked list: 1->2->3->4->5, and n = 2.
+
+After removing the second node from the end, the linked list becomes 1->2->3->5.
+*/
+
+node* removeNthFromEnd(node* head, int n) {
+
+    int sz = get_size(&head);
+
+    int num = sz - n + 1;
+
+    int i = 1;
+
+    node* temp = head;
+
+    node* preTemp = NULL;
+
+    while(i!=num & temp!=NULL){
+        preTemp = temp;
+        temp = temp->next;
+        i++;
+    }
+
+    if(preTemp==NULL){
+            head = head->next;
+    }
+    else{
+        if(temp!=NULL)preTemp->next = temp->next;
     }
 
     return head;

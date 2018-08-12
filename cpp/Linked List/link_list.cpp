@@ -77,6 +77,12 @@ int main(){
 
     cout<<"partition list size: "<<get_size(&head)<<"\n";
 
+    head = removeNthFromEnd(head,3);
+
+    print_list(&head);
+
+    cout<<"Remove Nth Node From End of List size: "<<get_size(&head)<<"\n";
+
     cout<<"clear list\n";
 
     clear_list(&head);

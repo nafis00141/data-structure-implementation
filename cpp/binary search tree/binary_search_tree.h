@@ -53,6 +53,46 @@ void print_levelorder(node* head){
 
 }
 
+void print_levelorder_in_level(node* head){
+
+    queue<node*>q;
+    queue<int>qi;
+
+    q.push(head);
+    qi.push(0);
+    int last_level = 0;
+    node* n = NULL;
+    int l = 0;
+
+    while(q.empty()==false){
+
+        n = q.front();
+        q.pop();
+
+        l = qi.front();
+        qi.pop();
+
+        if(last_level!=l){
+            cout<<"\n";
+            last_level = l;
+        }
+
+        cout<<n->val<<" ";
+
+        if(n->left!=NULL){
+            q.push(n->left);
+            qi.push(l+1);
+        }
+        if(n->right!=NULL){
+            q.push(n->right);
+            qi.push(l+1);
+        }
+
+
+    }
+
+}
+
 node * tree_minimum(node* head){
 
     if(head->left==NULL) return head;
@@ -125,6 +165,45 @@ node* insert_node(node* head,int val){
     }
 
     return head;
+}
+
+
+node* reconstruct_bst_from_postorder(vector<int>v,int st,int en){
+
+    node* temp = create_node(v[en]);
+
+    if(st==en) return temp;
+
+    int t = en-1;
+
+    while(v[t]>v[en] && t>st){
+        t--;
+    }
+
+    node* l = NULL;
+
+    node* r = NULL;
+
+    if(t==st && v[t]>v[en]){
+        //no left subtree
+        r = reconstruct_bst_from_postorder(v,st,en-1);
+    }
+    else if(t==en-1 && v[t]<v[en]){
+        //no right subtree
+        l = reconstruct_bst_from_postorder(v,st,en-1);
+    }
+    else{
+        //has both subtree
+        l = reconstruct_bst_from_postorder(v,st,t);
+        r = reconstruct_bst_from_postorder(v,t+1,en-1);
+    }
+
+    temp->left = l;
+
+    temp->right = r;
+
+    return temp;
+
 }
 
 

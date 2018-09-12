@@ -5,7 +5,8 @@ using namespace std;
 int main(){
     node* head = NULL;
 
-    int t,a;
+    int t,a,n;
+    vector<int>v;
 
     cin>>t;
 
@@ -41,6 +42,22 @@ int main(){
     cout<<search_bst(head,a)->val;
     cout<<"\n";
 
+    cout<<"input of postorder:\n";
+
+    cin>>n;
+
+    for(int i=0;i<n;i++){
+        cin>>a;
+        v.push_back(a);
+    }
+
+    node* root = reconstruct_bst_from_postorder(v,0,n-1);
+
+    cout<<"BST\n";
+
+    print_levelorder_in_level(root);
+
+
 }
 
 
@@ -49,4 +66,6 @@ int main(){
 30 20 40 10 25 35 45
 25
 43
+6
+1 7 5 50 40 10
 */
